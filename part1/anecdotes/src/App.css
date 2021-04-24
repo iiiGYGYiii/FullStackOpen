@@ -1,0 +1,38 @@
+button {
+    background-color: rgba(255,255,255,0.5);
+    border: 2px black solid;
+    border-radius: 20px;
+    cursor: pointer;
+    height: 2em;
+    margin: 0 1em;
+    width: 10em;
+    font-size: 1.5em;
+}
+
+button:hover {
+    background-color: rgba(255,255,255,0.9);
+}
+.app{
+    text-align: center;
+}
+
+.anecdote{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255,255,255, 0.3);
+    border-radius: 25px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.175em;
+    height: 30vh;
+    margin: 4px auto 0 auto;
+    width: 75vw;
+}
+
+.anecdote h1{
+    width: 85%;
+}
+
+.header{
+    margin: 0 auto;
+}
