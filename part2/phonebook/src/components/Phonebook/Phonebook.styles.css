@@ -1,0 +1,9 @@
+.phonebook{
+    color: white;
+    background-color: rgba(0,0,0,0.3);
+    width: 25vw;
+    border-radius: 25px;
+    box-shadow: 10px 5px 5px rgba(0,0,0,0.6);
+    text-align: center;
+  }
+  
