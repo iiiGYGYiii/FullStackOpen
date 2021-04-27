@@ -1,0 +1,19 @@
+.message{
+    text-align: center;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    color: white;
+    text-transform: uppercase;
+    margin-top: 1em;
+}
+
+.good{
+    background-color: rgba(202,255,191,0.5);
+    border: 2px solid rgb(202,255,191);
+}
+
+.bad{
+    background-color: rgba(214,40,40,0.5);
+    border: 2px solid rgb(214,40,40);
+}

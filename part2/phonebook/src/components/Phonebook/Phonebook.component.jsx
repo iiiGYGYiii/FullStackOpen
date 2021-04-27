@@ -3,7 +3,7 @@ import './Phonebook.styles.css'
 import InputField from '../InputField/InputField.component';
 import { deletePhone } from '../../services/phonebook';
 
-const Phonebook = ({ persons, setPersons}) => {
+const Phonebook = ({ persons, setPersons, setMessage }) => {
     const [search, setSearch] = useState('');
 
     const handleChange = (event) =>{
@@ -13,6 +13,20 @@ const Phonebook = ({ persons, setPersons}) => {
     const handleDelete = (id) =>{
         if(window.confirm('Delete number?')){
             deletePhone(id)
+                .then(() =>{
+                setMessage({
+                    text: 'Phone has been deleted!',
+                    isBad: false
+                })
+                setInterval(() => setMessage(prevState=>({...prevState, text:''})), 5000);
+            })
+            .catch(() =>{
+                setMessage({
+                    text: 'An error happened! Try again later.',
+                    isBad: true
+                });
+                setInterval(() => setMessage(prevState=>({...prevState, text:''})), 5000);
+            });
             setPersons(prevState=>{
                 return prevState.filter(person=>person.id!==id);
             });

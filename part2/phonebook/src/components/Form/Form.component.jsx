@@ -21,7 +21,7 @@ const valueExists = (value, field, data) => {
     return false;
 };
 
-const Form = ({ persons, setPersons, nextId, setNextId }) => {
+const Form = ({ persons, setPersons, nextId, setNextId, setMessage }) => {
     const [newPhone, setNewPhone] = useState({
         name: '',
         number: ''
@@ -39,16 +39,27 @@ const Form = ({ persons, setPersons, nextId, setNextId }) => {
             alert('Field is required');
             return;
         }
+        // UPDATE PHONE
         if (valueExists(newPhone, 'name', persons)){
             if (window.confirm(`Want to overwrite ${newPhone.name}?`)){
                 const id = valueExists(newPhone, 'name', persons);
                 const newPerson = updatePhone({ number: newPhone.number } ,id);
                 newPerson.then(res => {
+                    setMessage({
+                        text: `${res.name} has been updated!`,
+                        isBad: false
+                    });
                     setPersons(prevState=>{
                         return prevState.map(person => person.id===id ? res : person);
-                    })
-                });
-                
+                    });
+                    setInterval(() => setMessage(prevState=>({...prevState, text:''})), 5000);
+                }).catch(() =>{
+                    setMessage({
+                        text: 'An error happened! Try again later.',
+                        isBad: true
+                    });
+                    setInterval(() => setMessage(prevState=>({...prevState, text:''})), 5000);
+                });                
             }
             return; 
         }
@@ -56,6 +67,7 @@ const Form = ({ persons, setPersons, nextId, setNextId }) => {
             ...newPhone,
             id: nextId
         };
+        //CREATE NEW PHONE
         createPhone(newPerson).then(res=>{
             setPersons(prevState=>[...prevState, res]);
             setNewPhone((prevState)=>{
@@ -66,6 +78,18 @@ const Form = ({ persons, setPersons, nextId, setNextId }) => {
                 }
             });
             setNextId(prevState => prevState+1);
+            setMessage({
+                text: `${res.name} has been created!`,
+                isBad: false
+            });
+            setInterval(() => setMessage(prevState=>({...prevState, text:''})), 5000);
+        })
+        .catch(() =>{
+            setMessage({
+                text: 'An error happened! Try again later.',
+                isBad: true
+            });
+            setInterval(() => setMessage(prevState=>({...prevState, text:''})), 5000);
         });
         
     }
