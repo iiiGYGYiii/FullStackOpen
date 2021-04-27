@@ -1,5 +1,9 @@
+// MODULES
 import React, { useState } from 'react';
+import { createPhone, updatePhone } from '../../services/phonebook';
+// STYLES
 import './Form.styles.css'
+// COMPONENTS
 import InputField from '../InputField/InputField.component';
 
 const isEmpty = (data) => {
@@ -11,12 +15,13 @@ const isEmpty = (data) => {
 
 const valueExists = (value, field, data) => {
     if (data.map(d=>d[field]).indexOf(value[field])!==-1){
-        return true;
+        const id = data.filter(d => d[field] === value[field] )[0].id;
+        return id;
     }
     return false;
 };
 
-const Form = ({ persons, setPersons }) => {
+const Form = ({ persons, setPersons, nextId, setNextId }) => {
     const [newPhone, setNewPhone] = useState({
         name: '',
         number: ''
@@ -34,22 +39,35 @@ const Form = ({ persons, setPersons }) => {
             alert('Field is required');
             return;
         }
-        if (valueExists(newPhone, 'name', persons)||valueExists(newPhone, 'number',persons)){
-            alert(`${newPhone.name} already exists!`)
-            return;
+        if (valueExists(newPhone, 'name', persons)){
+            if (window.confirm(`Want to overwrite ${newPhone.name}?`)){
+                const id = valueExists(newPhone, 'name', persons);
+                const newPerson = updatePhone({ number: newPhone.number } ,id);
+                newPerson.then(res => {
+                    setPersons(prevState=>{
+                        return prevState.map(person => person.id===id ? res : person);
+                    })
+                });
+                
+            }
+            return; 
         }
         const newPerson = {
             ...newPhone,
-            id: persons.length+1
+            id: nextId
         };
-        setPersons((prevState)=> [...prevState, newPerson] );
-        setNewPhone((prevState)=>{
-            return{
-                ...prevState,
-                name:'',
-                number: ''
-            }
+        createPhone(newPerson).then(res=>{
+            setPersons(prevState=>[...prevState, res]);
+            setNewPhone((prevState)=>{
+                return{
+                    ...prevState,
+                    name:'',
+                    number: ''
+                }
+            });
+            setNextId(prevState => prevState+1);
         });
+        
     }
 
     return(

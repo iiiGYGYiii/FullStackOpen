@@ -10,7 +10,7 @@ const WeatherCard = ({ capital }) =>{
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const weatherAPI = `http://api.weatherstack.com/current?access_key=${process.env.REACT_APP_API_KEY}&query=${capital}`
+        const weatherAPI = `http://api.weatherstack.com/current?access_key=6687e6e129f1a923aca2ce949677d03c&query=${capital}`
         axios
             .get(weatherAPI)
             .then(res =>{
