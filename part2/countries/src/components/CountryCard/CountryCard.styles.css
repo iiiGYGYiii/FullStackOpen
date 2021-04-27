@@ -1,0 +1,34 @@
+h1{
+    font-size: 3em;
+    letter-spacing: 2px;
+}
+
+.card h2{
+    letter-spacing: 1px;
+}
+
+ul{
+    text-align: left;
+    font-size: 1.25em;
+}
+
+.country-card{
+    width: 70vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.card{
+    height: 510px;
+    width: 25vw;
+    color: white;
+    background-color: rgba(0,0,0,0.5);
+    padding:1em;
+    border-radius: 25px;
+    box-shadow: 2px 2px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.card p{
+    font-size: 1.25em;
+}

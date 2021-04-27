@@ -1,0 +1,7 @@
+.display-countries{
+    font-family: 'Orelega One', cursive;
+    height: 85vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
