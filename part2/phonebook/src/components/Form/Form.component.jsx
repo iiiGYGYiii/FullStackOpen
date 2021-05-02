@@ -21,7 +21,7 @@ const valueExists = (value, field, data) => {
     return false;
 };
 
-const Form = ({ persons, setPersons, nextId, setNextId, setMessage }) => {
+const Form = ({ persons, setPersons, setMessage }) => {
     const [newPhone, setNewPhone] = useState({
         name: '',
         number: ''
@@ -53,19 +53,25 @@ const Form = ({ persons, setPersons, nextId, setNextId, setMessage }) => {
                         return prevState.map(person => person.id===id ? res : person);
                     });
                     setInterval(() => setMessage(prevState=>({...prevState, text:''})), 5000);
-                }).catch(() =>{
+                }).catch((error) =>{
                     setMessage({
-                        text: 'An error happened! Try again later.',
+                        text: error.response.data.error,
                         isBad: true
                     });
                     setInterval(() => setMessage(prevState=>({...prevState, text:''})), 5000);
                 });                
             }
+            setNewPhone((prevState)=>{
+                return{
+                    ...prevState,
+                    name:'',
+                    number: ''
+                }
+            });
             return; 
         }
         const newPerson = {
-            ...newPhone,
-            id: nextId
+            ...newPhone
         };
         //CREATE NEW PHONE
         createPhone(newPerson).then(res=>{
@@ -77,16 +83,15 @@ const Form = ({ persons, setPersons, nextId, setNextId, setMessage }) => {
                     number: ''
                 }
             });
-            setNextId(prevState => prevState+1);
             setMessage({
                 text: `${res.name} has been created!`,
                 isBad: false
             });
             setInterval(() => setMessage(prevState=>({...prevState, text:''})), 5000);
         })
-        .catch(() =>{
+        .catch((e) =>{
             setMessage({
-                text: 'An error happened! Try again later.',
+                text: e.response.data.error,
                 isBad: true
             });
             setInterval(() => setMessage(prevState=>({...prevState, text:''})), 5000);
