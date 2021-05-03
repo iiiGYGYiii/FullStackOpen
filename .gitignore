@@ -4,4 +4,5 @@ part2\courseinfo\node_modulespart2\countries\src\.env
 part4\node_modules
 part4\package-lock.json
 part4\.env
-part3\phonebook\build
+part3\phonebook\buildpart4\.eslintrc.js
+part4\.eslintrc.js
