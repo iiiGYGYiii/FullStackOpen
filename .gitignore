@@ -6,3 +6,5 @@ part4\package-lock.json
 part4\.env
 part3\phonebook\buildpart4\.eslintrc.js
 part4\.eslintrc.js
+part4\.env
+.\part4\.env
