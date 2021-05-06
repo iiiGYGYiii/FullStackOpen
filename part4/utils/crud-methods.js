@@ -6,10 +6,10 @@ const Blog = require("../models/blog.js");
  |* @param {JSON} data Data to store on the DB.
  * @returns A promise. If succeed, the data stored, else an status code.
  */
-const createBlog = async (data) =>{
+const createDoc = async (data, Model) =>{
   try {
-    const blog = new Blog(data);
-    return await blog.save();
+    const docToSave = new Model(data);
+    return await docToSave.save();
   } catch (e) {
     return e.name === "ValidationError"? {error: e.message}: 400;
   }
@@ -20,8 +20,8 @@ const createBlog = async (data) =>{
  * @param {JSON} filter Query filter to search on DB, if not given returns all data.
  * @returns A promise of found data
  */
-const find = async (filter={}) =>{
-  const result = await Blog.find(filter);
+const find = async (filter={}, Model, Populates, SetPopulates) =>{
+  const result = await Model.find(filter).populate(Populates, SetPopulates);
   return result;
 };
 
@@ -30,9 +30,9 @@ const find = async (filter={}) =>{
  * @param {String} id ID to find in the DB.
  * @returns A promise. If succeed, found data, else, undefined.
  */
-const findById = async (id) =>{
+const findById = async (id, Model) =>{
   try {
-    const result = await Blog.findById(id);
+    const result = await Model.findById(id);
     return result;
   } catch (e) {
     return undefined;
@@ -46,16 +46,19 @@ const findById = async (id) =>{
  * @param {Number} size Quantity of elements to be updated.
  * @returns A promise, if succeed, updated data; else, status code.
 */
-const updateBlog = async(id, data) =>{
-  const blog = await findById(id);
+const updateDoc = async(id, data, Model, User) =>{
+  const blog = await findById(id, Model);
   if (!blog){
     return 404;
   }
-  const newBlog = {...blog._doc, ...data};
+  if (blog._id.toString()===User.id){
+    return 401;
+  }
+  const newDoc = {...blog._doc, ...data};
   try {
-    await Blog.validate(newBlog);
-    await Blog.updateOne({_id: id}, newBlog);
-    return await findById(id);
+    await Model.validate(newDoc);
+    await Model.updateOne({_id: id}, newDoc);
+    return await findById(id, Model);
   } catch (e) {
     return e.name === "ValidationError"? {error: e.message}: 400;
   }  
@@ -79,9 +82,16 @@ const updateLikes = async(id) =>{
  * @param {String} id ID of item to be deleted
  * @returns Promise. Undefined.
  */
-const deleteElement = async (id) =>{
+const deleteElement = async (id, Model, User) =>{
+  if(!User){
+    return;
+  }
+  const data = await Model.findById(id);
+  if (data.user.toString() !== User.id){
+    return;
+  }
   try {
-    await Blog.findByIdAndDelete(id);
+    await Model.findByIdAndDelete(id);
     return;
   } catch (e) {
     return; 
@@ -89,10 +99,10 @@ const deleteElement = async (id) =>{
 };
 
 module.exports = {
-  createBlog,
+  createDoc,
   find,
   findById,
-  updateBlog,
+  updateDoc,
   updateLikes,
   deleteElement
 };
