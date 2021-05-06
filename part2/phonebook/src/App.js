@@ -10,7 +10,6 @@ import Notification from './components/Notification/Notification.component';
 
 const App = () => {
   const [ persons, setPersons ] = useState([]);
-  const [ nextId, setNextId] = useState(0);
   const [ message, setMessage] = useState({
     text: '',
     isBad: false
@@ -18,10 +17,9 @@ const App = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/phonebook")
+      .get("/api/persons")
       .then(res =>{
         setPersons(res.data)
-        setNextId(1+Math.max(...res.data.map(person=>person.id)));
       })
       .catch(console.error);
   },
@@ -36,8 +34,6 @@ const App = () => {
         <Form
         persons={persons}
         setPersons={setPersons}
-        nextId={nextId}
-        setNextId={setNextId}
         setMessage={setMessage}
         />
         <Phonebook
