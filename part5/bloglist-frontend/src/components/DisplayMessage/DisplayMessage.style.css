@@ -1,0 +1,14 @@
+.bad-msg, .good-msg{
+  border-radius: 16px;
+  text-align: center;
+}
+
+.bad-msg{
+  background-color: rgba(255,0,0,0.4);
+  border: 2px red solid;
+}
+
+.good-msg{
+  background-color: rgba(0,255,0,0.4);
+  border: 2px green solid;
+}
