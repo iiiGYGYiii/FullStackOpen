@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import "./InputForm.style.css";
 
 const InputForm = ({ handleChange, placeHolder, label, ...otherProps }) =>(
@@ -10,5 +12,11 @@ const InputForm = ({ handleChange, placeHolder, label, ...otherProps }) =>(
     {...otherProps}
   /></>
 );
+
+InputForm.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+  placeHolder: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired
+};
 
 export default InputForm;

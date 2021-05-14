@@ -1,5 +1,6 @@
 //COMPONENTS
 import LogInForm from "../LogInForm/LogInForm.component";
+import PropTypes from "prop-types";
 
 import './NavBar.style.css';
 
@@ -27,6 +28,12 @@ const NavBar = ({ user, setUser, setMessage }) =>{
       }
     </div>
   );
+};
+
+NavBar.propTypes = {
+  user: PropTypes.object.isRequired,
+  setUser: PropTypes.func.isRequired,
+  setMessage: PropTypes.func.isRequired
 };
 
 export default NavBar;

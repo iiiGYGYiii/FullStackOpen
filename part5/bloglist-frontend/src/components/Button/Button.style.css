@@ -1,4 +1,4 @@
-.login-btn{
+.login-btn, .btn{
   background: none;
   background-color: #74c69d;
   border: none;
@@ -8,11 +8,11 @@
   padding: 0.5em 1.25em;
 }
 
-.login-btn:hover{
+.login-btn:hover, .btn:hover{
   cursor: pointer;
   background-color: #52b788;
 }
 
-.login-btn:active{
+.login-btn:active, .btn:active{
   background-color: #2d6a4f;
 }

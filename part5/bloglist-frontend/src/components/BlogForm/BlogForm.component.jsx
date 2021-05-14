@@ -1,6 +1,7 @@
 // MODULES
 import { createBlog } from "../../services/blogService";
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 //COMPONENTS
 import InputForm from "../InputForm/InputForm.component";
@@ -12,7 +13,8 @@ import "./BlogForm.style.css";
 const BlogForm = ({ setUser, setBlogs, setMessage }) =>{
   const [blog, setBlog] = useState({
     author: "",
-    title: ""
+    title: "",
+    url:""
   });
 
   const handleChange = ({ target }) =>{
@@ -31,7 +33,7 @@ const BlogForm = ({ setUser, setBlogs, setMessage }) =>{
       const data = await createBlog(blog);
       if (!data.error){
         setBlogs(prevState=>[...prevState, data]);
-        setBlog({author:"",title:""});
+        setBlog({author:"",title:"", url:""});
         setMessage({isBad: false,text: "Blog was created successfully! :D"});
         setInterval(()=>{setMessage({isBad:false, text:""})}, 5000);
       }
@@ -61,6 +63,14 @@ const BlogForm = ({ setUser, setBlogs, setMessage }) =>{
         label="author"
         required
       />
+      <InputForm
+        handleChange={handleChange}
+        value={blog.url}
+        type="text"
+        name="url"
+        label="url"
+        required
+      />
       <Button>
         Create
       </Button>
@@ -68,5 +78,11 @@ const BlogForm = ({ setUser, setBlogs, setMessage }) =>{
   );
 
 }
+
+BlogForm.propTypes = {
+  setUser: PropTypes.func.isRequired,
+  setBlogs: PropTypes.func.isRequired,
+  setMessage: PropTypes.func.isRequired
+};
 
 export default BlogForm;

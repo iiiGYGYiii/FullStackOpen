@@ -1,6 +1,7 @@
 //MODULES
 import {useState} from "react";
 import { logIn } from "../../services/blogService";
+import PropTypes from "prop-types";
 
 //COMPONENTS
 import InputForm from "../InputForm/InputForm.component";
@@ -82,5 +83,10 @@ const LogInForm = ({ setUser, setMessage }) =>{
   </form>
   );
 }
+
+LogInForm.propTypes ={
+  setUser: PropTypes.func.isRequired,
+  setMessage: PropTypes.func.isRequired
+};
 
 export default LogInForm;

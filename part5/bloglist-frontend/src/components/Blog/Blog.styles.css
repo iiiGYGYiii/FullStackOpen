@@ -11,3 +11,13 @@ hr{
   text-align: center;
   margin: 1em;
 }
+
+.show-info-btn, .hide-info-btn, .like-btn{
+  text-decoration: underline;  
+  cursor: pointer;
+  color: blue;
+}
+
+.hide-info-btn{
+  color:red;
+}
