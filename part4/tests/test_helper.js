@@ -29,7 +29,7 @@ const initialBlogs = [
 
 const initialUsers = [
   {
-    username: "iiiGYGYiii",
+    username: "iiiGYGYiii3",
     password: "sekret",
     name: "Weyso",
     _id: "60932cc54e2e5751007eed37"

@@ -37,6 +37,7 @@ const Blog = ({ author, title, url, user, likes, ID, setBlogs, likesTest }) => {
       <p onClick={changeShowInfo} className="hide-info-btn"> Hide </p>
       <p>
       <span
+        id="delete"
         style={{backgroundColor:"red", color:"white", fontWeight:"bold", cursor:"pointer"}}
         onClick={deleteBlog}>
           DELETE

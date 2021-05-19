@@ -71,7 +71,7 @@ const BlogForm = ({ setUser, setBlogs, setMessage, testSubmit }) =>{
         label="url"
         required
       />
-      <Button>
+      <Button id="submit-blog">
         Create
       </Button>
     </form>

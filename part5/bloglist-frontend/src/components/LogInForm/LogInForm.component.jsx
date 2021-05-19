@@ -77,7 +77,7 @@ const LogInForm = ({ setUser, setMessage }) =>{
       label="password"
       required
     />
-    <Button>
+    <Button id="log-in">
       Log In
     </Button>
   </form>

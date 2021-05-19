@@ -9,6 +9,7 @@ const InputForm = ({ handleChange, placeHolder, label, ...otherProps }) =>(
     className="login-input"
     onChange={handleChange}
     placeholder={placeHolder}
+    id={label.split(" ").join("-")}
     {...otherProps}
   /></>
 );
