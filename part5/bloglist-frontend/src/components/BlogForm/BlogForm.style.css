@@ -1,0 +1,18 @@
+.blog-form label{
+  color: white;
+  margin: 0.5em;
+  font-size: 1.25em;
+  font-weight: bold;
+}
+
+.blog-form button{
+  font-size: 1.064em;
+  letter-spacing: 2px;
+  padding: 0.5em;
+}
+
+.blog-form input{
+  color: white;
+  font-weight: bold;
+  margin: 0.5em;
+}
