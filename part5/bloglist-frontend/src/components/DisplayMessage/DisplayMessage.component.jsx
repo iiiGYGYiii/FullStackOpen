@@ -8,7 +8,7 @@ const displayMessage = ({ message }) =>(
 );
 
 // eslint-disable-next-line react/no-typos
-displayMessage.PropTypes = {
+displayMessage.propTypes = {
   message: PropTypes.object.isRequired
 };
 

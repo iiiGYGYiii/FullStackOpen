@@ -31,7 +31,7 @@ const NavBar = ({ user, setUser, setMessage }) =>{
 };
 
 NavBar.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   setUser: PropTypes.func.isRequired,
   setMessage: PropTypes.func.isRequired
 };

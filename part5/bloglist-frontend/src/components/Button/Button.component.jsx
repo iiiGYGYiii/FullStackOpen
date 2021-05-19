@@ -7,7 +7,7 @@ const Button = ({ children }) =>(
 );
 
 Button.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.object)
+  children: PropTypes.string
 }
 
 export default Button;

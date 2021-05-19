@@ -5,7 +5,7 @@ import { updateLikes, deleteBlogService } from "../../services/blogService";
 
 import "./Blog.styles.css";
 
-const Blog = ({ author, title, url, user, likes, ID, setBlogs }) => {
+const Blog = ({ author, title, url, user, likes, ID, setBlogs, likesTest }) => {
 
   const [showInfo, setShowInfo] = useState(false);
   const [likeDisplay, setLikeDisplay] = useState(likes);
@@ -33,7 +33,7 @@ const Blog = ({ author, title, url, user, likes, ID, setBlogs }) => {
       <hr/>
       <p> Url: {url} </p>
       <p> Posted by: {user} </p>
-      <p> Likes: {likeDisplay} <span onClick={likePost} className="like-btn">Like! 👍</span></p>
+      <p className="like-par"> Likes: {likeDisplay} <span onClick={likesTest || likePost} className="like-btn">Like! 👍</span></p>
       <p onClick={changeShowInfo} className="hide-info-btn"> Hide </p>
       <p>
       <span
@@ -46,18 +46,18 @@ const Blog = ({ author, title, url, user, likes, ID, setBlogs }) => {
     <p className="show-info-btn" onClick={changeShowInfo}> More Info </p>
     }
     
-  </div>
-);
+  </div>);
 };
 
 Blog.propTypes = {
   author: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
-  user: PropTypes.string.isRequired,
+  user: PropTypes.string,
   likes: PropTypes.number.isRequired,
   ID: PropTypes.string.isRequired,
-  setBlogs: PropTypes.func.isRequired
+  setBlogs: PropTypes.func.isRequired,
+  likesTest: PropTypes.func
 };
 
 export default Blog;

@@ -10,7 +10,7 @@ import Button from "../Button/Button.component";
 //STYLES
 import "./BlogForm.style.css";
 
-const BlogForm = ({ setUser, setBlogs, setMessage }) =>{
+const BlogForm = ({ setUser, setBlogs, setMessage, testSubmit }) =>{
   const [blog, setBlog] = useState({
     author: "",
     title: "",
@@ -46,7 +46,7 @@ const BlogForm = ({ setUser, setBlogs, setMessage }) =>{
   }
 
   return(
-    <form className="blog-form" onSubmit={handleSubmit}>
+    <form className="blog-form" onSubmit={testSubmit || handleSubmit}>
       <InputForm
         handleChange={handleChange}
         value={blog.title}
@@ -82,7 +82,8 @@ const BlogForm = ({ setUser, setBlogs, setMessage }) =>{
 BlogForm.propTypes = {
   setUser: PropTypes.func.isRequired,
   setBlogs: PropTypes.func.isRequired,
-  setMessage: PropTypes.func.isRequired
+  setMessage: PropTypes.func.isRequired,
+  testSubmit: PropTypes.func
 };
 
 export default BlogForm;

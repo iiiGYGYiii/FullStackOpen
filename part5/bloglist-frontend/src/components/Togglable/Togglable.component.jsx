@@ -25,7 +25,7 @@ const Togglable = ({ children, buttonLabel }) =>{
 }
 
 Togglable.propTypes={
-  children: PropTypes.arrayOf(PropTypes.object),
+  children: PropTypes.object,
   buttonLabel: PropTypes.string
 }
 

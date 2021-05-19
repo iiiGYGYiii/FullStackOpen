@@ -39,7 +39,7 @@ const Blogs = ({ user, setUser, setMessage }) =>{
 };
 
 Blogs.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   setUser: PropTypes.func.isRequired,
   setMessage: PropTypes.func.isRequired
 };
