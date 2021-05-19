@@ -42,6 +42,19 @@ blogRouter.route("/:id")
       response.error?
         res.status(400).json(response).end():
         res.json(response);
+  })
+  .patch(async(req,res)=>{
+    const data = await blogCRUD.read({_id: req.params.id});
+    const updateItem = {
+      ...data,
+      ...req.body
+    };  
+    const response = await CRUD.updateDoc(req.params.id,updateItem, Blog, req.user);
+    typeof response === "number"?
+      res.status(response).end():
+      response.error?
+        res.status(400).json(response).end():
+        res.json(response);
   });
 
 

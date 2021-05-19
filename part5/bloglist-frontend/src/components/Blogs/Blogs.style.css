@@ -1,0 +1,5 @@
+.blogs{
+  width: 95vw;  
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
