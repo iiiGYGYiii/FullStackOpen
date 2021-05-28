@@ -5,7 +5,7 @@ import Anecdote from "../Anecdote/Anecdote.component";
 // STYLE
 import "./AnecdoteList.styles.css";
 
-const anecdotesSelector = state=>state.anecdotes;
+const anecdotesSelector = state=> state.filter? state.anecdotes.filter(anecdote => anecdote.content.includes(state.filter)) :state.anecdotes;
 
 const AnecdoteList = () =>{
   const anecdotes = useSelector(anecdotesSelector);

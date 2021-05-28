@@ -2,13 +2,13 @@ import rootReducer from "./reducer";
 import deepFreeze from "deep-freeze";
 
 describe("Root Reducer", () =>{
-
-  test("anecdotes properties exists inside state", () =>{
-    const newState = rootReducer(undefined, { type: "NOTHING" });
-    expect(newState.anecdotes).toBeDefined();
-  });
-
   describe("Anecdotes Reducer", () =>{
+
+    test("anecdotes properties exists inside state", () =>{
+      const newState = rootReducer(undefined, { type: "NOTHING" });
+      expect(newState.anecdotes).toBeDefined();
+    });
+
     const anecdotes = [
       'If it hurts, do it more often',
       'Adding manpower to a late software project makes it later!',
@@ -30,8 +30,8 @@ describe("Root Reducer", () =>{
   
     test("A proper state is returned when state arg is undefined", () =>{
       const state = undefined;
-      const newState = rootReducer(state, { type: "NOTHING"});
-      expect(newState).toEqual(initialState);
+      const newState = rootReducer(state, { type: "NOTHING"}).anecdotes;
+      expect(newState).toEqual(anecdotesState);
     });
   
     test("A new state is returned with action ADD_ANECDOTE", ()=>{
@@ -59,6 +59,14 @@ describe("Root Reducer", () =>{
         ...anecdotesState[id],
         votes: anecdotesState[id].votes+1
       });
+    });
+  });
+
+  describe("Notification Reducer", () =>{
+    test("Notification prop is defined in state", () =>{
+      const newState = rootReducer({}, { type: "NOTHING" });
+      expect(newState.notification).toBeDefined();
+      expect(newState.notification).toBe("");
     });
   });
 });

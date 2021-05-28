@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import "./index.css";
 
-function App() {
+import { useSelector, useDispatch } from "react-redux";
+
+import ActionButton from "./components/ActionButton/ActionButton.component";
+import Counter from "./components/Counter/Counter.component";
+
+export default function App() {
+  const appState = useSelector((state) => state);
+  const dispatch = useDispatch();
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="btn-container">
+        <ActionButton
+          handleClick={() => {
+            dispatch({ type: "GOOD" });
+          }}
+          label={"GOOD"}
+        />
+        <ActionButton
+          handleClick={() => {
+            dispatch({ type: "BAD" });
+          }}
+          label={"BAD"}
+        />
+        <ActionButton
+          handleClick={() => {
+            dispatch({ type: "OK" });
+          }}
+          label={"OK"}
+        />
+      </div>
+      <table className="greyGridTable">
+        <tbody>
+          <Counter name="GOOD" value={appState.good} />
+          <Counter name="OK" value={appState.ok} />
+          <Counter name="BAD" value={appState.bad} />
+        </tbody>
+      </table>
     </div>
   );
 }
-
-export default App;

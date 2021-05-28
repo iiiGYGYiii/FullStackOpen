@@ -1,13 +1,64 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+html {
+  overflow: hidden;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+table.greyGridTable {
+  border: 2px solid #000000;
+  width: 50vw;
+  text-align: center;
+  border-collapse: collapse;
+}
+table.greyGridTable td,
+table.greyGridTable th {
+  border: 1px solid #000000;
+  padding: 3px 4px;
+}
+table.greyGridTable tbody td {
+  font-size: 2rem;
+}
+table.greyGridTable tr:nth-child(even) {
+  background: #d0e4f5;
+}
+table.greyGridTable td:nth-child(even) {
+  background: #ebebeb;
+}
+table.greyGridTable tfoot td {
+  font-size: 14px;
+}
+
+.App {
+  height: 100vh;
+  font-family: sans-serif;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.btn-container {
+  width: 75%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.btn-container button {
+  background-color: rgba(123, 32, 52, 0.4);
+  border: none;
+  border: 1px black solid;
+  border-radius: 16px;
+  font-size: 2em;
+  padding: 0.25em 1em;
+}
+
+.btn-container button:hover {
+  background-color: rgba(123, 32, 52, 0.6);
+}
+
+.btn-container button:active {
+  background-color: rgba(123, 32, 52, 0.8);
+  color: white;
 }

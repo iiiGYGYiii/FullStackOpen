@@ -33,4 +33,18 @@ const anecdotesReducer = (state=initialState, action)=>{
   }
 };
 
+export const addAnecdote = (content) => {
+  return{
+    type: "ADD_ANECDOTE",
+    data: content
+  };
+};
+
+export const voteAnecdote = (id) =>{
+  return{
+    type: "VOTE_ANECDOTE",
+    data: id
+  };
+};
+
 export default anecdotesReducer;

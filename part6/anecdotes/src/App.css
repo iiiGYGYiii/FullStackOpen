@@ -23,3 +23,15 @@
 .header{
     margin: 0 auto;
 }
+
+.header-container{
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    width: 75vw;
+    margin: auto;
+
+}
+
+.header-container .anecdote{
+    width: 90%;
+}
