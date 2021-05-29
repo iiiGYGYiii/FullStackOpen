@@ -1,26 +1,13 @@
-const anecdotes = [
-  'If it hurts, do it more often',
-  'Adding manpower to a late software project makes it later!',
-  'The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
-  'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
-  'Premature optimization is the root of all evil.',
-  'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
-];
+import { getAnecdotes,
+  voteAnecdoteService,
+  createAnecdote,
+  deleteAnecdoteService
+} from "../../services/anecdotesServices";
 
-const toObject = (anecdote, id)=>{
-  return{
-    content: anecdote,
-    id: id,
-    votes: 0
-  };
-};
-
-const initialState = anecdotes.map((anecdote, id)=>toObject(anecdote, id));
-
-const anecdotesReducer = (state=initialState, action)=>{
+const anecdotesReducer = (state=[], action)=>{
   switch (action.type) {
     case "ADD_ANECDOTE":
-      return [...state, toObject(action.data, state.length+1)];
+      return [...state, action.data];
     case "VOTE_ANECDOTE":
       return state.map(anecdote=>anecdote.id===action.data?
         {
@@ -28,6 +15,10 @@ const anecdotesReducer = (state=initialState, action)=>{
           votes: anecdote.votes+1
         }:
         anecdote);
+    case "anecdotes/DELETE_ANECDOTE":
+      return state.filter(val=> val.id!==action.data);
+    case "anecdotes/INIT_ANECDOTES":
+      return action.data
     default:
       return state;
   }
@@ -40,11 +31,45 @@ export const addAnecdote = (content) => {
   };
 };
 
+export const deleteAnecdote = id => {
+  return{
+    type: "anecdotes/DELETE_ANECDOTE",
+    data: id
+  };
+};
+
 export const voteAnecdote = (id) =>{
   return{
     type: "VOTE_ANECDOTE",
     data: id
   };
 };
+
+export const initAnecdotes = data =>{
+  return{
+    type: "anecdotes/INIT_ANECDOTES",
+    data
+  };
+};
+
+export const initializeAnecdotes = async (dispatch, getState) =>{
+  const data = await getAnecdotes();
+  dispatch(initAnecdotes(data));
+};
+
+export const voteAnecdoteCall = id => async(dispatch, getState)=>{
+  await voteAnecdoteService(id);
+  dispatch(voteAnecdote(id));
+};
+
+export const addAnecdoteCall = content => async(dispatch, getState)=>{
+  const response = await createAnecdote(content);
+  dispatch(addAnecdote(response));
+}
+
+export const deleteAnecdoteCall = id => async(dispatch, getState)=>{
+  await deleteAnecdoteService(id);
+  dispatch(deleteAnecdote(id));
+}
 
 export default anecdotesReducer;

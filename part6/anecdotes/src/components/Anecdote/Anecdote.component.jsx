@@ -1,7 +1,7 @@
 // MODULES
 import { useDispatch } from "react-redux";
-import { voteAnecdote } from "../../reducers/anecdotes/anecdotesSlice";
-import { voteMessage, resetNotification } from "../../reducers/notification/notificationSlice";
+import { voteAnecdoteCall } from "../../reducers/anecdotes/anecdotesSlice";
+import { voteMessageCaller } from "../../reducers/notification/notificationSlice";
 // STYLES
 import "./Anecdote.styles.css";
 
@@ -9,11 +9,8 @@ const Anecdote = ({ anecdote }) =>{
   const dispatch = useDispatch();
   const handleClick = (event) =>{
     event.preventDefault();
-    dispatch(voteAnecdote(anecdote.id)); 
-    dispatch(voteMessage(anecdote.content));
-    setTimeout(() =>{
-      dispatch(resetNotification());
-    }, 5000);
+    dispatch(voteAnecdoteCall(anecdote.id));
+    voteMessageCaller(anecdote.content);
   };
   return(<div className="anecdote">
     <div className="anecdote-content">

@@ -1,22 +1,19 @@
 // MODULES
 import { useDispatch } from "react-redux";
-import { addAnecdote } from "../../reducers/anecdotes/anecdotesSlice";
-import { anecdoteMessage, resetNotification } from "../../reducers/notification/notificationSlice"
+import { addAnecdoteCall } from "../../reducers/anecdotes/anecdotesSlice";
+import { anecdoteMessageCaller } from "../../reducers/notification/notificationSlice"
 // STYLES
 import "./AnecdoteForm.styles.css";
 
 const AnecdoteForm = () => {
   const dispatch = useDispatch();
 
-  const handleSubmit = (event) =>{
-    event.preventDefault();
-    const anecdote = event.target.anecdote.value;
-    dispatch(addAnecdote(anecdote));
-    dispatch(anecdoteMessage(anecdote));
-    setTimeout(() =>{
-      dispatch(resetNotification());
-    }, 5000);
-    event.target.anecdote.value = "";
+  const handleSubmit = async (e) =>{
+    e.preventDefault();
+    const anecdote = e.target.anecdote.value;
+    dispatch(addAnecdoteCall(anecdote));
+    dispatch(anecdoteMessageCaller(anecdote));
+    e.target.anecdote.value = "";
   };
 
   return(

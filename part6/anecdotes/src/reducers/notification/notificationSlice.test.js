@@ -41,5 +41,4 @@ describe("notifications", ()=>{
       expect(newState).toBe(initialState);
     });
   });
-
 });

@@ -33,4 +33,18 @@ export const resetNotification = () =>{
   };
 };
 
+export const anecdoteMessageCaller = anecdote => (dispatch, getState)=>{
+  dispatch(anecdoteMessage(anecdote));
+  setTimeout(()=>{
+    dispatch(resetNotification());
+  }, 5000);
+};
+
+export const voteMessageCaller = anecdote => (dispatch, getState)=>{
+  dispatch(voteMessage(anecdote));
+  setTimeout(()=>{
+    dispatch(resetNotification());
+  }, 5000);
+};
+
 export default notificationReducer;
