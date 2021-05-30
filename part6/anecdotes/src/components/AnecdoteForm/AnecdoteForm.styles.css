@@ -1,0 +1,44 @@
+.anecdoteForm input[type=text]{
+  background: none;
+  border: none;
+  border-bottom: 2px white solid;
+  text-align: center;
+  font-size: 1em;
+  height: 1.25em;
+  width: 75%;
+  margin-bottom: 1.375em;
+}
+
+.anecdoteForm input[type=text]:hover{
+  background-color: rgba(255,255,255,0.2);
+}
+
+.anecdoteForm input[type=text]:focus{
+  border: none;
+  background-color: rgba(255,255,255,0.6);
+  border-bottom: 2px white solid;
+}
+
+.anecdoteForm{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.add-anecdote-btn{
+  background: none;
+  border: none;
+  background-color: rgba(255,255,255,0.5);
+  border: 2px black solid;
+  border-radius: 20px;
+  cursor: pointer;
+  height: 3em;
+  margin: 0 1em;
+  font-size: 0.75em;
+}
+
+.add-anecdote-btn:hover{
+  background-color: rgba(255,255,255,0.9);
+}
