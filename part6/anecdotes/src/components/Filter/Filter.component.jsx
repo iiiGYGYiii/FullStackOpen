@@ -1,13 +1,12 @@
 // MODULES
-import { useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import { changeFilter } from "../../reducers/filter/filterSlice";
 // STYLES
 import "./Filter.styles.css";
 
-const Filter = () =>{
-  const dispatch = useDispatch();
+const Filter = ({ dispatchChange }) =>{
   const handleChange = (e) =>{
-    dispatch(changeFilter(e.target.value));
+    dispatchChange(e.target.value);
   }
   return (<div className="anecdote filter">
     <h3>Filter:</h3>
@@ -15,4 +14,10 @@ const Filter = () =>{
   </div>)
 };
 
-export default Filter;
+const mapDispatchToProps = {
+  dispatchChange: changeFilter
+};
+
+const ConnectedFilter = connect(null, mapDispatchToProps)(Filter);
+
+export default ConnectedFilter;

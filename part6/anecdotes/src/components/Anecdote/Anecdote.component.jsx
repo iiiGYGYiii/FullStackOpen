@@ -1,16 +1,13 @@
 // MODULES
-import { useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import { voteAnecdoteCall } from "../../reducers/anecdotes/anecdotesSlice";
-import { voteMessageCaller } from "../../reducers/notification/notificationSlice";
 // STYLES
 import "./Anecdote.styles.css";
 
-const Anecdote = ({ anecdote }) =>{
-  const dispatch = useDispatch();
+const Anecdote = ({ voteDispatch, anecdote }) =>{
   const handleClick = (event) =>{
     event.preventDefault();
-    dispatch(voteAnecdoteCall(anecdote.id));
-    voteMessageCaller(anecdote.content);
+    voteDispatch(anecdote.id)
   };
   return(<div className="anecdote">
     <div className="anecdote-content">
@@ -29,4 +26,10 @@ const Anecdote = ({ anecdote }) =>{
   </div>);
 };
 
-export default Anecdote;
+const mapDispatchToProps = {
+  voteDispatch: voteAnecdoteCall
+}
+
+const ConnectedAnecdote = connect(null, mapDispatchToProps)(Anecdote);
+
+export default ConnectedAnecdote;

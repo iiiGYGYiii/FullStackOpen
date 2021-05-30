@@ -19,7 +19,7 @@ describe("notifications", ()=>{
       const message = "Hello World!";
       const template = `You've voted for ${message}!`
       const newState = notificationReducer(state, {
-        type: "message/NEW_NOTE",
+        type: "message/NEW_VOTE",
         data: message
       });
       expect(newState).toBe(template);

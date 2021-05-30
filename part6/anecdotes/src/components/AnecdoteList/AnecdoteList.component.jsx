@@ -1,5 +1,5 @@
 // MODULES
-import { useSelector, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import { useEffect } from "react";
 import { getAnecdotes } from "../../services/anecdotesServices";
 import { initAnecdotes } from "../../reducers/anecdotes/anecdotesSlice";
@@ -8,16 +8,13 @@ import Anecdote from "../Anecdote/Anecdote.component";
 // STYLE
 import "./AnecdoteList.styles.css";
 
-const anecdotesSelector = state=> state.filter? state.anecdotes.filter(anecdote => anecdote.content.includes(state.filter)) :state.anecdotes;
-
-const AnecdoteList = () =>{
-  const anecdotes = useSelector(anecdotesSelector);
-  const dispatch = useDispatch();
+const AnecdoteList = ({ anecdotesState, initState}) =>{
+  const anecdotes = anecdotesState;
   useEffect(()=>{
     getAnecdotes().then(data=>{
-      dispatch(initAnecdotes(data));
+      initState(data);
     });
-  },[dispatch]);
+  },[initState]);
   return(<>
     {anecdotes.sort((a,b)=>b.votes-a.votes).map(anecdote => <Anecdote
       anecdote={anecdote}
@@ -27,4 +24,18 @@ const AnecdoteList = () =>{
   );
 };
 
-export default AnecdoteList;
+const mapStateToProps = state => {
+  return{
+    anecdotesState: state.filter
+    ?state.anecdotes.filter(anecdote => anecdote.content.includes(state.filter))
+    :state.anecdotes
+  }
+}
+
+const mapDispatchToProps = {
+  initState: initAnecdotes
+};
+
+const ConnectedAnecdoteList = connect(mapStateToProps, mapDispatchToProps)(AnecdoteList);
+
+export default ConnectedAnecdoteList;

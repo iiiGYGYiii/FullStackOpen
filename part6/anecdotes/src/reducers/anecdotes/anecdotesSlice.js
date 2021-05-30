@@ -1,3 +1,4 @@
+import { voteMessageCaller, anecdoteMessageCaller } from "../../reducers/notification/notificationSlice";
 import { getAnecdotes,
   voteAnecdoteService,
   createAnecdote,
@@ -59,12 +60,16 @@ export const initializeAnecdotes = async (dispatch, getState) =>{
 
 export const voteAnecdoteCall = id => async(dispatch, getState)=>{
   await voteAnecdoteService(id);
+  const state = getState();
+  const anecdote = state.anecdotes.find(val => val.id === id);
   dispatch(voteAnecdote(id));
+  dispatch(voteMessageCaller(anecdote.content));
 };
 
 export const addAnecdoteCall = content => async(dispatch, getState)=>{
   const response = await createAnecdote(content);
   dispatch(addAnecdote(response));
+  dispatch(anecdoteMessageCaller(content));
 }
 
 export const deleteAnecdoteCall = id => async(dispatch, getState)=>{

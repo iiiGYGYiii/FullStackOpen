@@ -1,21 +1,16 @@
 // MODULES
-import { useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import { addAnecdoteCall } from "../../reducers/anecdotes/anecdotesSlice";
-import { anecdoteMessageCaller } from "../../reducers/notification/notificationSlice"
 // STYLES
 import "./AnecdoteForm.styles.css";
 
-const AnecdoteForm = () => {
-  const dispatch = useDispatch();
-
+const AnecdoteForm = ({ addAnecdote }) => {
   const handleSubmit = async (e) =>{
     e.preventDefault();
     const anecdote = e.target.anecdote.value;
-    dispatch(addAnecdoteCall(anecdote));
-    dispatch(anecdoteMessageCaller(anecdote));
+    addAnecdote(anecdote);
     e.target.anecdote.value = "";
   };
-
   return(
     <div className="anecdote">
       <form autoComplete="off" onSubmit={handleSubmit} className="anecdoteForm">
@@ -26,4 +21,9 @@ const AnecdoteForm = () => {
   );
 };
 
-export default AnecdoteForm;
+const mapDispatchToProps = {
+  addAnecdote: addAnecdoteCall
+};
+const ConnectedAnecdoteForm = connect(null, mapDispatchToProps)(AnecdoteForm);
+
+export default ConnectedAnecdoteForm;
