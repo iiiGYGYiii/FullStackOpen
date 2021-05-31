@@ -1,0 +1,6 @@
+main.anecdote-info h2, main.anecdote-info h3, main.anecdote-info p, main.anecdote-info em{
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 1em;
+  padding: 0.5em 1.5em;
+  border: 1px black solid;
+}

@@ -1,0 +1,32 @@
+header{
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 1em;
+  padding-top: 0.5em;
+  background-color: rgba(255,255,255,0.3);
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 2em;
+}
+
+header a{
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.5em;
+  color: inherit;
+  transition: all .2s ease-in-out;
+  padding: 0.25em 1em;
+  border: 1px var(--dark) solid;
+  border-radius: 1em;
+  background-color: rgba(229,212,237,0.5);
+  box-shadow: 2px 5px rgba(0,0,0,0.4);
+}
+
+header a:hover{
+  transform: scale(1.1);
+  background-color: rgba(229, 212, 237, 0.8);
+}
+
+header a:visited{
+  text-decoration: none;
+}
+

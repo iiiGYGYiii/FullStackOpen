@@ -1,0 +1,50 @@
+.anecdote-li{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 50%;
+  height: 2em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  border: 2px var(--white) solid;
+  border-radius: 1em;
+  margin: 1em auto;
+  
+  background-color: rgba(255,255,255,0.3);
+
+  box-shadow: 5px 10px var(--dark);
+
+  transition: all .2s ease-in-out;
+
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 1.5em;
+}
+
+.anecdote-li a{
+  text-decoration: none;
+  color: var(--dark);
+  font-weight: bold;
+}
+
+.anecdote-li:hover, .anecdote-li a:hover{
+  color: rgba(255,0,0,0.7);
+  transform: scale(1.1);
+}
+
+.anecdote-li:active, .anecdote-li a:active{
+  color: rgba(255,0,0,1);
+}
+
+.notification{
+  border-radius: 1em;
+  border: 2px green solid;
+  background-color: rgba(0,255,0,0.3);
+  width: 50%;
+  margin: 0.25em auto;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 1.5em;
+  padding: 0 0.5em;
+  color: var(--white);
+}
