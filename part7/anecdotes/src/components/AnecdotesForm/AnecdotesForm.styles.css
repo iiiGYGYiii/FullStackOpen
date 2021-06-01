@@ -15,14 +15,13 @@
   justify-content: space-between;
 }
 
-.anecdote-form input{
-
+.input-field{
   margin: 0 auto 1em auto;
   font-size: 1.750em;
   text-align: center;
 }
 
-.anecdote-form button{
+.submit-btn{
   background: none;
   cursor: pointer;
   border: none;
@@ -33,6 +32,7 @@
   font-weight: bold;
   color: white;
   height: 3em;
+  margin: auto 2em;
 }
 
 .anecdote-form button:hover{

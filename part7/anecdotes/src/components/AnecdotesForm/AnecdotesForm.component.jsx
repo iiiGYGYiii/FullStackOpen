@@ -1,47 +1,42 @@
 //MODULES
-import { useState } from "react";
+import { useField } from "../../utils/hooks";
 import { useHistory } from "react-router-dom";
 //STYLES
 import "./AnecdotesForm.styles.css";
 
 const AnecdotesForm = ({ setAnecdotes, id, setMessage}) =>{
   const history = useHistory();
-  const [anecdote, setAnecdote] = useState({
-    content: "",
-    author: "",
-    info: ""
-  });
+  const { clearValue: clearContent, ...content } = useField("text");
+  const { clearValue: clearAuthor, ...author} = useField("text");
+  const { clearValue: clearInfo, ...info}  = useField("text");
+
+  const clearForm = () =>{
+    clearContent();
+    clearAuthor();
+    clearInfo();
+  }
+
   const handleSubmit= (event)=>{
     event.preventDefault();
-    setAnecdotes(prevState=>{
-      return[
+    const anecdote = {
+      content: content.value,
+      author: author.value,
+      info: info.value
+    }
+    setAnecdotes(prevState=>[
         ...prevState,
         {
           ...anecdote,
           votes: 0,
           id: String(id)
         }
-      ]
-    });
-    setMessage(`"${anecdote.content}" has been created!`);
+      ]);
+    setMessage(`"${content.value}" has been created!`);
     setTimeout(()=>{
       setMessage("");
     },10000);
-    setAnecdote({
-      content: "",
-      author: "",
-      info: ""
-    });
+    clearForm();
     history.push("/");
-  };
-
-  const handleChange = e =>{
-    setAnecdote(prevState=>{
-      return{
-        ...prevState,
-        [e.target.name]:e.target.value
-      }
-    })
   };
 
   return(<div className="form-container"><form className="anecdote-form" onSubmit={handleSubmit}>
@@ -49,34 +44,45 @@ const AnecdotesForm = ({ setAnecdotes, id, setMessage}) =>{
       Content
     </label>
     <input
-      type="text"
-      value = {anecdote.content}
+      className="input-field"
       id = "content"
       name = "content"
-      onChange={handleChange}
+      {
+        ...content
+      }
       required
     />
     <label htmlFor="author">
       Author
     </label>
     <input
+      className="input-field"
       id="author"
-      type="text"
-      value = {anecdote.author}
       name = "author"
-      onChange={handleChange}
+      {
+        ...author
+      }
       required
     />
     <label htmlFor="info">
       Info
     </label>
     <input
+      className="input-field"
       id="info"
-      type="text"
-      value = {anecdote.info}
       name = "info"
-      onChange={handleChange}
+      {
+        ...info
+      }
       required
+    />
+    <div>
+    <input
+      id="clear"
+      type="button"
+      value="Clear"
+      className="submit-btn"
+      onClick={clearForm}
     />
     <button
       type="submit"
@@ -84,7 +90,7 @@ const AnecdotesForm = ({ setAnecdotes, id, setMessage}) =>{
     >
     Submit
     </button>
-    
+    </div>
   </form></div>)
 };
 
