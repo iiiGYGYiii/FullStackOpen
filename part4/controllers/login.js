@@ -6,7 +6,6 @@ const User = require("../models/user");
 loginRouter.route("/")
   .post(async(req,res)=>{
     const user = await User.findOne({username: req.body.username});
-    //console.log("User", user, "Body", req.body);
     const {password, username} = req.body;
     
     const passwordCorrect = user === null?
@@ -32,6 +31,7 @@ loginRouter.route("/")
 
     res.status(200).json({
       token,
+      id: user._id,
       username: user.username,
       name:user.name
     });

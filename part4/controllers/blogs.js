@@ -29,7 +29,11 @@ blogRouter.route("/")
 blogRouter.route("/:id")
   .get(async (req,res) => {
     const data = await blogCRUD.read({_id: req.params.id});
-    res.json(data);
+    if (data.length){
+      res.json(data);
+      return;
+    }
+    res.status(404).end();
   })
   .delete(async(req,res)=>{
     await CRUD.deleteElement(req.params.id, Blog, req.user);
@@ -57,6 +61,29 @@ blogRouter.route("/:id")
         res.json(response);
   });
 
+blogRouter.route("/:id/comment")
+  .post(async(req, res)=>{
+    if (!req.user){
+      return res.status(401).json({error: "must be logged to comment"}).end();
+    }
+    
+    const blog = await Blog.findById(req.params.id);
+    if (!blog){
+      res.status(404).end();
+      return;
+    }
+      
+    const newComment = {
+      ...req.body,
+      blog: req.params.id
+    };
+    const data = await blogCRUD.createComment(req.params.id, newComment);
+    typeof data === "number"?
+      res.status(data).end():
+      data.error?
+        res.status(400).json(data).end():
+        res.json(data);
+  });
 
 
 module.exports = blogRouter;

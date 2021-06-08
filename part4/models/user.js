@@ -2,9 +2,16 @@ const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 
 const userSchema = new mongoose.Schema({
-  name: String,
+  name: {
+    type: String,
+    minLength: 3
+  },
   username:{
     type: String,
+    validate:{
+      validator: v => !/\W/gm.test(v),
+      message: props=> `${props.value} cannot contain special characters.`
+    },
     minLength: 3,
     required: true,
     unique: true
