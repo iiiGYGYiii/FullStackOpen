@@ -1,4 +1,17 @@
+/* eslint-disable indent */
 const { ApolloServer, gql } = require("apollo-server");
+
+function searchByAuthor(list, author) {
+  return list.filter((item) => item.author === author);
+}
+
+function searchByGenre(list, genre) {
+  return list.filter((item) => item.genres.includes(genre));
+}
+
+function searchByAuthorAndGenre(list, author, genre) {
+  return searchByAuthor(searchByGenre(list, genre), author);
+}
 
 let authors = [
   {
@@ -104,7 +117,7 @@ const typeDefs = gql`
   type Query {
     bookCount: Int!
     authorCount: Int!
-    allBooks(author: String): [Book!]!
+    allBooks(author: String, genre: String): [Book!]!
     allAuthors: [Author!]!
   }
 `;
@@ -115,7 +128,13 @@ const resolvers = {
     authorCount: () => authors.length,
     allAuthors: () => authors,
     allBooks: (root, args) =>
-      args.author ? books.filter((book) => book.author === args.author) : books,
+      args.author && args.genre
+        ? searchByAuthorAndGenre(books, args.author, args.genre)
+        : args.author
+        ? searchByAuthor(books, args.author)
+        : args.genre
+        ? searchByGenre(books, args.genre)
+        : books,
   },
   Author: {
     bookCount: (root) =>
