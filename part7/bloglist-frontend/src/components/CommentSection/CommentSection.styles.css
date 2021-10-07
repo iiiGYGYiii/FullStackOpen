@@ -81,7 +81,16 @@ input[type="submit"]{
     margin-bottom: 1em;
   }
   input[type="submit"]{
-    
     margin: auto;
+  }
+}
+
+@media (max-width: 689px){
+  input[type="submit"], input[name="comment"]{
+    height:2em;
+  }
+
+  .comment-container{
+    width: 100%;
   }
 }

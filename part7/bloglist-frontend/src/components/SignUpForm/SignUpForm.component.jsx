@@ -50,6 +50,7 @@ const SignUpForm = () =>{
         password: userCredentials.password
       });
       dispatch(addUser(createdUser));
+      dispatch(updateMessage("User created successfully!", false));
       history.push("/");
       setUserCredentials(initialState);
     } catch (error) {

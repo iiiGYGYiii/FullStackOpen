@@ -2,6 +2,7 @@
 import PropTypes from "prop-types";
 import { useParams, useHistory, Link} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { updateMessage } from "../../reducers/Notification/notificationSlice";
 // ACTION CREATORS
 import { deleteBlog as deleteBlogAction,
   likeBlog
@@ -18,7 +19,8 @@ const Blog = ({ likesTest }) => {
   const activeUser = useSelector(state=>state.user)
   const dispatch = useDispatch();
   if (!blog){
-    return null;
+    history.push("/");
+    dispatch(updateMessage("404: Blog doesn't exist", true));
   }
   const {author, title, url, user, likes } = blog;  
   const likePost = async() => {

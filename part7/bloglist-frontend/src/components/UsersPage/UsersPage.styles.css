@@ -2,7 +2,9 @@
   list-style: none;
   background-color: #0003;
   border-radius: 1em;
-  width: max-content;
+  max-width: 8em;
+  overflow: hidden;
+  text-overflow: ellipsis;
   margin: auto;
   margin-bottom: 1em;
   padding: 1px 1em;
@@ -22,4 +24,22 @@
 
 #users-title{
   margin:0;
+}
+
+@media (max-width: 689px){
+  #users-table{
+    grid-template-columns: repeat(3,1fr);
+  }
+}
+
+@media (max-width: 519px){
+  #users-table{
+    grid-template-columns: repeat(2,1fr);
+  }
+}
+
+@media (max-width: 370px){
+  #users-table{
+    grid-template-columns: 1fr;
+  }
 }
