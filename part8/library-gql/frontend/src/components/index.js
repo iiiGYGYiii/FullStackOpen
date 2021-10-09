@@ -4,5 +4,7 @@ export { default as Authors } from "./Authors/Authors.component";
 export { default as Book } from "./Book/Book.component";
 export { default as Books } from "./Books/Books.component";
 export { default as Button } from "./Button/Button.component";
+export { default as ChangeAuthorForm } from "./ChangeAuthorForm/ChangeAuthorForm.component";
 export { default as Field } from "./Field/Field.component";
 export { default as Menu } from "./Menu/Menu.component";
+export { default as SelectAuthor } from "./SelectAuthor/SelectAuthor.component";
