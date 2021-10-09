@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { ALL_AUTHORS } from "../../logic/graphql/queries/queries";
+import Author from "../Author/Author.component";
 import "./Authors.styles.css";
 
 export default function Authors() {
@@ -14,11 +15,7 @@ export default function Authors() {
       </thead>
       <tbody>
         {result.data.allAuthors.map((author) => (
-          <tr key={author.name}>
-            <td>{author.name}</td>
-            <td>{author.born}</td>
-            <td>{author.bookCount}</td>
-          </tr>
+          <Author key={author.name} {...author} />
         ))}
       </tbody>
     </table>
