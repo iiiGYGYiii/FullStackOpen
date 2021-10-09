@@ -9,9 +9,11 @@ export default function Authors() {
   return (
     <table>
       <thead>
-        <th>Name</th>
-        <th>Born</th>
-        <th>Books</th>
+        <tr>
+          <th>Name</th>
+          <th>Born</th>
+          <th>Books</th>
+        </tr>
       </thead>
       <tbody>
         {result.data.allAuthors.map((author) => (
