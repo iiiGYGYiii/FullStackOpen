@@ -7,11 +7,15 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@apollo/client": "^3.4.16",
+    "graphql": "^15.6.1",
     "react": "^17.0.0",
     "react-dom": "^17.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^1.0.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-react": "^7.26.1",
     "vite": "^2.6.4"
   }
 }
