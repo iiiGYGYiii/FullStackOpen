@@ -39,6 +39,7 @@ export default function AddBookForm() {
       },
     });
     setBookForm(initialBookFormState);
+    setGenres([]);
   };
   return (
     <form onSubmit={handleSubmit}>
