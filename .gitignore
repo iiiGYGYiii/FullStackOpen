@@ -18,3 +18,4 @@ part6/node_modules
 part8/node_modules
 part8/library-gql/frontend/node_modules
 part8/library-gql/server/node_modules
+**/.env
