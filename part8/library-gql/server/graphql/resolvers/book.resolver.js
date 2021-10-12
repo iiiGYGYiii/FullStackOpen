@@ -1,42 +1,40 @@
 /* eslint-disable indent */
-const { v1: uuid } = require("uuid");
+const {
+  findAuthorByName,
+  createAuthor,
+} = require("../../db/utils/authorModel.utils");
 
 const {
-  searchByAuthorAndGenre,
+  getBooks,
+  createBook,
   searchByAuthor,
   searchByGenre,
-} = require("../../utils/search.helper.js");
+  searchByAuthorAndGenre,
+} = require("../../db/utils/bookModel.utils");
 
-let { getBooks, appendBookToBooks } = require("../../utils/books.data.js");
-const { getAuthors, appendToAuthors } = require("../../utils/authors.data");
-
-function bookCount() {
-  return getBooks().length;
+async function bookCount() {
+  return (await getBooks()).length;
 }
 
-function allBooks(root, args) {
+async function allBooks(root, args) {
   return args.author && args.genre
-    ? searchByAuthorAndGenre(getBooks(), args.author, args.genre)
+    ? await searchByAuthorAndGenre(args.author, args.genre)
     : args.author
-    ? searchByAuthor(getBooks(), args.author)
+    ? await searchByAuthor(args.author)
     : args.genre
-    ? searchByGenre(getBooks(), args.genre)
-    : getBooks();
+    ? await searchByGenre(args.genre)
+    : await getBooks();
 }
 
 function addBook(root, args) {
-  if (
-    !getAuthors()
-      .map((author) => author.name)
-      .includes(args.author)
-  ) {
-    appendToAuthors({
+  if (!findAuthorByName(args.name)) {
+    createAuthor({
       name: args.author,
-      id: uuid(),
     });
   }
-  const book = { ...args, id: uuid() };
-  appendBookToBooks(book);
+  const author = findAuthorByName(args.name);
+  const book = { ...args, author: author._id };
+  createBook(book);
   return book;
 }
 

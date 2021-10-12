@@ -8,7 +8,6 @@ import { Book } from "..";
 export default function Books() {
   const result = useQuery(ALL_BOOKS);
   if (result.loading) return <p>Loading...</p>;
-
   return (
     <table>
       <thead>

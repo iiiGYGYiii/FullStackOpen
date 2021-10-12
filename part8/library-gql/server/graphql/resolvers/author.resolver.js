@@ -1,29 +1,25 @@
 const {
   getAuthors,
   findAuthorByNameAndUpdate,
-} = require("../../utils/authors.data");
-const { getBooks } = require("../../utils/books.data");
+} = require("../../db/utils/authorModel.utils");
+const { getBooks } = require("../../db/utils/bookModel.utils");
 
-function authorCount() {
-  return getAuthors().length;
+async function authorCount() {
+  return (await getAuthors()).length;
 }
 
-function allAuthors() {
-  return getAuthors();
+async function allAuthors() {
+  return await getAuthors();
 }
 
-function editAuthor(root, args) {
-  if (!getAuthors().find((author) => author.name === args.name)) return null;
-  const foundAuthor = getAuthors().find((author) => author.name === args.name);
-  const newAuthor = { ...foundAuthor, ...args };
-  findAuthorByNameAndUpdate(args.name, newAuthor);
-  return newAuthor;
+async function editAuthor(root, args) {
+  return await findAuthorByNameAndUpdate(args.name, args);
 }
 
-function bookCount(root) {
-  return getBooks().reduce(
+async function bookCount(root) {
+  return (await getBooks()).reduce(
     (accumulator, book) =>
-      book.author === root.name ? accumulator + 1 : accumulator,
+      book.author.name === root.name ? accumulator + 1 : accumulator,
     0
   );
 }

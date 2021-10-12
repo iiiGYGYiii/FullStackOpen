@@ -1,6 +1,6 @@
 import "./Book.styles.css";
 
-export default function Book({ title, author, published }) {
+export default function Book({ title, author: { name: author }, published }) {
   return (
     <tr>
       <td>{title}</td>
