@@ -1,3 +1,4 @@
+const { tryPromise } = require("../../utils/global.helper");
 const { AuthorModel } = require("../models/index");
 
 async function getAuthors() {
@@ -12,7 +13,8 @@ async function getAuthors() {
 
 async function createAuthor(authorToAdd) {
   const newAuthor = new AuthorModel(authorToAdd);
-  return await newAuthor.save();
+  const result = await tryPromise(() => newAuthor.save());
+  return result;
 }
 
 async function findAuthorByName(nameToFind) {
@@ -23,7 +25,10 @@ async function findAuthorByNameAndUpdate(nameToFind, updatedAuthor) {
   try {
     const authorUpdated = await AuthorModel.findOneAndUpdate(
       { name: nameToFind },
-      updatedAuthor
+      updatedAuthor,
+      {
+        new: true,
+      }
     );
     return authorUpdated;
   } catch ({ message }) {

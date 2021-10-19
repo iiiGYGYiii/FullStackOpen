@@ -11,8 +11,13 @@ async function getBooks() {
 }
 
 async function createBook(bookToAdd) {
-  const newBook = new BookModel(bookToAdd);
-  return await newBook.save();
+  try {
+    const newBook = new BookModel(bookToAdd);
+    const book = await newBook.save();
+    return [await BookModel.findById(book._id).populate("author"), null];
+  } catch ({ message }) {
+    return [null, message];
+  }
 }
 
 async function searchByAuthorAndGenre(author, genre) {
@@ -23,7 +28,6 @@ async function searchByAuthorAndGenre(author, genre) {
 
 async function searchByAuthor(author) {
   const books = await getBooks();
-  console.log(books);
   return books.filter((book) => book.author.name === author);
 }
 

@@ -6,15 +6,21 @@ import { AddBookForm, Authors, Books, Menu } from "./components";
 
 function App() {
   const [page, setPage] = useState(initialPageState);
+  const [error, setError] = useState(null);
+  const notifyError = (error) => {
+    setError(error);
+    setTimeout(() => setError(null), 1500);
+  };
   return (
     <div className="App">
+      {error ? <h3>{error}</h3> : null}
       <Menu setPage={setPage} />
       {page === pages.authors ? (
-        <Authors />
+        <Authors setError={notifyError} />
       ) : page === pages.books ? (
         <Books />
       ) : page === pages.add ? (
-        <AddBookForm />
+        <AddBookForm setError={notifyError} />
       ) : null}
     </div>
   );

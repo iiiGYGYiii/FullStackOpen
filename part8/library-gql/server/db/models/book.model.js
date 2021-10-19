@@ -10,9 +10,9 @@ const bookSchema = new Schema({
   },
   published: {
     type: Number,
-    required: true,
   },
   title: {
+    minlength: 5,
     type: String,
     required: true,
   },

@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ALL_AUTHORS, EDIT_AUTHOR } from "../../logic/graphql/queries/queries";
@@ -11,9 +12,12 @@ const initialFormState = (allAuthors) => ({
   name: allAuthors[0],
 });
 
-export default function ChangeAuthorForm({ allAuthors }) {
+export default function ChangeAuthorForm({ allAuthors, setError }) {
   const [changeAuthor] = useMutation(EDIT_AUTHOR, {
     refetchQueries: [{ query: ALL_AUTHORS }],
+    onError: () => {
+      setError("An error has happened. Please try again later");
+    },
   });
   const [formValues, setFormValues] = useState(initialFormState(allAuthors));
   const handleChange = ({ target }) =>
@@ -41,6 +45,7 @@ export default function ChangeAuthorForm({ allAuthors }) {
         name="born"
         value={formValues.born}
         handleChange={handleBornChange}
+        type="number"
       />
       <input type="submit" value="Change Author" />
     </form>

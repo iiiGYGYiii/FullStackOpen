@@ -9,6 +9,8 @@ const mutationTypes = gql`
       genres: [String!]!
     ): Book
     editAuthor(name: String!, born: Int!): Author
+    createUser(userName: String!, favoriteGenre: String!): User
+    login(userName: String!, password: String!): Token
   }
 `;
 

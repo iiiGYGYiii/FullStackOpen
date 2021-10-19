@@ -16,9 +16,10 @@ const initialBookFormState = {
   genre: "",
 };
 
-export default function AddBookForm() {
+export default function AddBookForm({ setError }) {
   const [createBook] = useMutation(ADD_BOOK, {
     refetchQueries: [{ query: ALL_BOOKS }, { query: ALL_AUTHORS }],
+    onError: (error) => setError(error.graphQLErrors[0].message),
   });
   const [bookForm, setBookForm] = useState(initialBookFormState);
   const [genres, setGenres] = useState([]);
@@ -51,6 +52,7 @@ export default function AddBookForm() {
       />
       <Field
         name="published"
+        type="number"
         value={bookForm.published}
         handleChange={handleChange}
       />

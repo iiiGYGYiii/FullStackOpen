@@ -36,7 +36,9 @@ export const ADD_BOOK = gql`
       published: $published
     ) {
       title
-      author
+      author {
+        name
+      }
       published
     }
   }

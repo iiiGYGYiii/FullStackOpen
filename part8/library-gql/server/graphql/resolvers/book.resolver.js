@@ -1,4 +1,6 @@
 /* eslint-disable indent */
+const { UserInputError, AuthenticationError } = require("apollo-server");
+
 const {
   findAuthorByName,
   createAuthor,
@@ -11,6 +13,7 @@ const {
   searchByGenre,
   searchByAuthorAndGenre,
 } = require("../../db/utils/bookModel.utils");
+const { tryPromise } = require("../../utils/global.helper");
 
 async function bookCount() {
   return (await getBooks()).length;
@@ -26,16 +29,27 @@ async function allBooks(root, args) {
     : await getBooks();
 }
 
-function addBook(root, args) {
-  if (!findAuthorByName(args.name)) {
-    createAuthor({
-      name: args.author,
+async function addBook(root, args, { currentUser }) {
+  if (!currentUser) throw new AuthenticationError("User is not authenticated");
+  let [authorData, authorError] = await tryPromise(() =>
+    findAuthorByName(args.author)
+  );
+  if (!authorData) {
+    [authorData, authorError] = await createAuthor({ name: args.author });
+    if (authorError) {
+      throw new UserInputError(authorError, {
+        invalidArgs: args,
+      });
+    }
+  }
+  const book = { ...args, author: authorData._id };
+  const [bookData, bookError] = await createBook(book);
+  if (bookError) {
+    throw new UserInputError(bookError, {
+      invalidArgs: args,
     });
   }
-  const author = findAuthorByName(args.name);
-  const book = { ...args, author: author._id };
-  createBook(book);
-  return book;
+  return bookData;
 }
 
 module.exports = {
