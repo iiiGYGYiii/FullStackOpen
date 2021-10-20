@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import Field from "../Field/Field.component";
+import { updateCacheWith } from "../../logic/graphql/utils";
 import {
   ADD_BOOK,
   ALL_AUTHORS,
@@ -8,6 +8,8 @@ import {
 } from "../../logic/graphql/queries/queries";
 
 import "./AddBookForm.styles.css";
+
+import Field from "../Field/Field.component";
 
 const initialBookFormState = {
   title: "",
@@ -20,6 +22,9 @@ export default function AddBookForm({ setError }) {
   const [createBook] = useMutation(ADD_BOOK, {
     refetchQueries: [{ query: ALL_BOOKS }, { query: ALL_AUTHORS }],
     onError: (error) => setError(error.graphQLErrors[0].message),
+    update: (store, response) => {
+      updateCacheWith(response.data.addBook);
+    },
   });
   const [bookForm, setBookForm] = useState(initialBookFormState);
   const [genres, setGenres] = useState([]);

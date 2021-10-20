@@ -6,6 +6,7 @@ const mutationTypes = require("./mutation.types");
 const queriesTypes = require("./queries.types");
 const tokenTypes = require("./token.types");
 const userTypes = require("./user.types");
+const subscriptionTypes = require("./subscription.types");
 
 const typeDefs = gql`
   ${authorTypes}
@@ -14,6 +15,7 @@ const typeDefs = gql`
   ${queriesTypes}
   ${tokenTypes}
   ${userTypes}
+  ${subscriptionTypes}
 `;
 
 module.exports = typeDefs;

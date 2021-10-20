@@ -1,5 +1,7 @@
 /* eslint-disable indent */
 const { UserInputError, AuthenticationError } = require("apollo-server");
+const { PubSub } = require("graphql-subscriptions");
+const pubsub = new PubSub();
 
 const {
   findAuthorByName,
@@ -49,11 +51,19 @@ async function addBook(root, args, { currentUser }) {
       invalidArgs: args,
     });
   }
+  pubsub.publish("BOOK_ADDED", {
+    bookAdded: bookData,
+  });
   return bookData;
 }
+
+const bookAdded = {
+  subscribe: () => pubsub.asyncIterator(["BOOK_ADDED"]),
+};
 
 module.exports = {
   bookCount,
   allBooks,
   addBook,
+  bookAdded,
 };

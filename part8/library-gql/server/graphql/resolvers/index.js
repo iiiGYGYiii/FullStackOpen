@@ -4,7 +4,7 @@ const {
   editAuthor,
   author,
 } = require("./author.resolver");
-const { allBooks, bookCount, addBook } = require("./book.resolver");
+const { allBooks, bookCount, addBook, bookAdded } = require("./book.resolver");
 const {
   createUser,
   login,
@@ -29,6 +29,9 @@ const resolvers = {
     editAuthor,
     createUser,
     login,
+  },
+  Subscription: {
+    bookAdded,
   },
 };
 
