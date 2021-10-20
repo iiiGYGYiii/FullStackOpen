@@ -8,3 +8,6 @@ export { default as ChangeAuthorForm } from "./ChangeAuthorForm/ChangeAuthorForm
 export { default as Field } from "./Field/Field.component";
 export { default as Menu } from "./Menu/Menu.component";
 export { default as SelectAuthor } from "./SelectAuthor/SelectAuthor.component";
+export { default as LoginForm } from "./LoginForm/LoginForm.component";
+export { default as RecommendedSection } from "./RecommendedSection/RecommendedSection.component";
+export { default as BooksTable } from "./BooksTable/BooksTable.component";

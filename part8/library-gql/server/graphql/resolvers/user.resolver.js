@@ -2,6 +2,7 @@ const { UserInputError } = require("apollo-server-errors");
 const {
   addNewUser,
   findByUserName,
+  fetchUserRecommendations,
 } = require("../../db/utils/userModel.utils");
 const JWT = require("jsonwebtoken");
 
@@ -38,10 +39,19 @@ const login = async (root, args) => {
   };
 };
 
-const me = (root, args, context) => context.currentUser;
+const me = (root, args, { currentUser }) => currentUser;
+
+const userRecommendations = async (root, args, { currentUser }) => {
+  const [books, error] = await fetchUserRecommendations(
+    currentUser.favoriteGenre
+  );
+  if (error) throw new UserInputError("Genre doesn't exist");
+  return books;
+};
 
 module.exports = {
   createUser,
   login,
   me,
+  userRecommendations,
 };

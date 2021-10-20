@@ -2,9 +2,17 @@ import { useState } from "react";
 import { initialPageState, pages } from "./utils/pages.utils";
 import "./App.css";
 
-import { AddBookForm, Authors, Books, Menu } from "./components";
+import {
+  AddBookForm,
+  Authors,
+  Books,
+  LoginForm,
+  Menu,
+  RecommendedSection,
+} from "./components";
 
 function App() {
+  const [token, setToken] = useState(null);
   const [page, setPage] = useState(initialPageState);
   const [error, setError] = useState(null);
   const notifyError = (error) => {
@@ -14,13 +22,24 @@ function App() {
   return (
     <div className="App">
       {error ? <h3>{error}</h3> : null}
-      <Menu setPage={setPage} />
+      <Menu setPage={setPage} token={token} setToken={setToken} />
       {page === pages.authors ? (
         <Authors setError={notifyError} />
       ) : page === pages.books ? (
         <Books />
       ) : page === pages.add ? (
         <AddBookForm setError={notifyError} />
+      ) : page === "login" ? (
+        <div>
+          <h2>Login</h2>
+          <LoginForm
+            setPage={setPage}
+            setToken={setToken}
+            setError={setError}
+          />
+        </div>
+      ) : page === "recommended" ? (
+        <RecommendedSection />
       ) : null}
     </div>
   );

@@ -5,7 +5,12 @@ const {
   author,
 } = require("./author.resolver");
 const { allBooks, bookCount, addBook } = require("./book.resolver");
-const { createUser, login, me } = require("./user.resolver");
+const {
+  createUser,
+  login,
+  me,
+  userRecommendations,
+} = require("./user.resolver");
 
 const resolvers = {
   Query: {
@@ -14,6 +19,7 @@ const resolvers = {
     allAuthors,
     allBooks,
     me,
+    userRecommendations,
   },
   Author: {
     bookCount: author.bookCount,
