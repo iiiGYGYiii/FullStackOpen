@@ -21,3 +21,4 @@ part8/library-gql/server/node_modules
 part9/node_modules
 **/.env
 **/node_modules
+**/build
