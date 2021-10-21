@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 interface Registry {
   numberOfDays: number;
   daysTrained: number;
@@ -18,7 +19,7 @@ const calcMean: MeanFunc = (arr) => {
   return arr.reduce((p, c) => p + c, 0) / arr.length;
 };
 
-const exerciseCalculator: ExerciseFunc = (register, goal) => {
+export const exerciseCalculator: ExerciseFunc = (register, goal) => {
   const numberOfDays = register.length;
   const daysTrained = register.reduce((p, c) => (c != 0 ? p + 1 : p), 0);
   const targetValue = goal;
