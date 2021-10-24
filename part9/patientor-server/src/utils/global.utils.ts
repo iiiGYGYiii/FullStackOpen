@@ -15,3 +15,9 @@ export const parseDate = (date: unknown): string => {
     throw new Error("Incorrect or missing date: " + date);
   return date;
 };
+
+export const parseArrayOfStings = (arr: unknown): string[] => {
+  if (!arr || !Array.isArray(arr) || !arr.every(isString))
+    throw new Error("Incorrect type or missing value");
+  return arr;
+};
