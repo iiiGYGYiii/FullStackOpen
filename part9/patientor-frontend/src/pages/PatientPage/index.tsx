@@ -2,6 +2,7 @@ import { useParams } from "react-router";
 import {
   Container,
   Icon,
+  Message,
   Table,
   TableBody,
   TableCell,
@@ -9,6 +10,7 @@ import {
   TableHeaderCell,
   TableRow,
 } from "semantic-ui-react";
+import DisplayEntry from "../../components/DisplayEntry";
 import { usePatient } from "../../services/patient.service";
 
 const PatientPage = () => {
@@ -41,6 +43,13 @@ const PatientPage = () => {
           </TableRow>
         </TableBody>
       </Table>
+      <Container>
+        {patient.entries.length ? (
+          patient.entries.map((p) => <DisplayEntry key={p.date} entry={p} />)
+        ) : (
+          <Message color="red">No entries found.</Message>
+        )}
+      </Container>
     </Container>
   );
 };

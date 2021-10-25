@@ -1,14 +1,13 @@
-import patientsData from "../data/patients.data.json";
+import patientsData from "../data/patients.data";
 
 import {
   Patients,
   NonSensitivePatients,
   Patient,
 } from "../types/patients.types";
-import { toPatient } from "../utils/patients.utils";
 
-let patients: Patients = patientsData as Patients;
-patients = patients.map(toPatient);
+let patients: Patients = patientsData;
+
 export const getPatients = (): Patients => patients;
 
 export const getNonSensitivePatients = (): NonSensitivePatients =>
