@@ -1,13 +1,14 @@
 import { v1 as uuid } from "uuid";
 
 import {
+  addEntryToPatientWithId,
   addPatient,
   fetchPatientById,
   getNonSensitivePatients,
 } from "../services/patientsService";
 
 import { Router } from "express";
-import { toNewPatient } from "../utils/patients.utils";
+import { EntryWithoutId, toNewPatient } from "../utils/patients.utils";
 import { Patient } from "../types/patients.types";
 import { parseString } from "../utils/global.utils";
 const patientsRouter = Router();
@@ -39,6 +40,20 @@ patientsRouter.route("/:id").get((req, res) => {
       .end();
   }
   return res.json(patientFound).end();
+});
+
+patientsRouter.route("/:id/entry").post((req, res) => {
+  const {
+    params: { id },
+  } = req;
+  const entry = req.body as EntryWithoutId;
+  try {
+    if (!entry) throw new Error("No body.");
+    const patientUpdated = addEntryToPatientWithId(id, entry);
+    res.json(patientUpdated).end();
+  } catch (e) {
+    if (e instanceof Error) res.status(403).json({ error: e.message }).end();
+  }
 });
 
 export default patientsRouter;

@@ -1,10 +1,15 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Patient } from "../types";
 import { apiBaseUrl } from "../constants";
 import { updatePatientsFetched, useStateValue } from "../state";
 
-export const usePatient = (id: string): Patient | undefined => {
+export const usePatient = (
+  id: string
+): [
+  Patient | undefined,
+  React.Dispatch<React.SetStateAction<Patient | undefined>>
+] => {
   const [patient, setPatient] = useState<Patient | undefined>();
   const [state, dispatch] = useStateValue();
   useEffect(() => {
@@ -23,5 +28,5 @@ export const usePatient = (id: string): Patient | undefined => {
     }
     fetchAndSetPatientById(id);
   }, []);
-  return patient;
+  return [patient, setPatient];
 };

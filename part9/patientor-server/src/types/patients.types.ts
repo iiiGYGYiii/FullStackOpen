@@ -36,13 +36,15 @@ interface HospitalEntry extends BaseEntry {
   discharge: Discharge;
 }
 
+export interface SickLeave {
+  startDate: string;
+  endDate: string;
+}
+
 interface OccupationalEntry extends BaseEntry {
   type: "OccupationalHealthcare";
   employerName: string;
-  sickLeave?: {
-    startDate: string;
-    endDate: string;
-  };
+  sickLeave?: SickLeave;
 }
 
 export type Entry = HealthCheckEntry | HospitalEntry | OccupationalEntry;
@@ -57,7 +59,7 @@ export interface Patient {
   entries: Entries;
 }
 
-type Entries = Entry[];
+export type Entries = Entry[];
 
 export type Patients = Patient[];
 

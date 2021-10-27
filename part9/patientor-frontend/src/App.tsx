@@ -41,7 +41,9 @@ const App = () => {
             <Route exact path="/">
               <PatientListPage />
             </Route>
-            <Route path="/:patientId" children={<PatientPage />} />
+            <Route path="/:patientId">
+              <PatientPage />
+            </Route>
           </Switch>
         </Container>
       </Router>

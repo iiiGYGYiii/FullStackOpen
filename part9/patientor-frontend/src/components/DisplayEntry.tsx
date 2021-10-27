@@ -1,8 +1,9 @@
+/* eslint-disable indent */
 import { Header, Icon, Menu, Message } from "semantic-ui-react";
-import { Diagnosis, Entry, HealthCheckRating } from "../types";
+import { Entry, EntryType, HealthCheckRating } from "../types";
 import DiagnosisCode from "./DiagnosisCode";
 
-const assertNever = (value: never): never => {
+export const assertNever = (value: never): never => {
   throw new Error(
     `Unhandled discriminated union member: ${JSON.stringify(value)}`
   );
@@ -54,13 +55,13 @@ const MyHOC: React.FC<{ entry: Entry }> = ({ children, entry }) => (
 
 const DisplayEntry = ({ entry }: { entry: Entry }) => {
   switch (entry.type) {
-    case "HealthCheck":
+    case EntryType.HealthCheck:
       return (
         <MyHOC entry={entry}>
           <HeartIcon healthCheckRating={entry.healthCheckRating} />
         </MyHOC>
       );
-    case "Hospital":
+    case EntryType.Hospital:
       return (
         <MyHOC entry={entry}>
           <Message color="green">
@@ -74,7 +75,7 @@ const DisplayEntry = ({ entry }: { entry: Entry }) => {
           </Message>
         </MyHOC>
       );
-    case "OccupationalHealthcare":
+    case EntryType.OccupationalHealthcare:
       return (
         <MyHOC entry={entry}>
           <Message color="orange">
